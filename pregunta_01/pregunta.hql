@@ -17,14 +17,15 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 DROP TABLE IF EXISTS data;
 DROP TABLE IF EXISTS  letter_counts;
 
-CREATE TABLE data (letter STRING,
-                  fecha DATE,
-                  numero INT)
+CREATE TABLE data 
+        (letra STRING,
+        fecha DATE,
+        numero INT)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
 TBLPROPERTIES ("skip.header.line.count"="0");
 
 LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE data;
-CREATE TABLE letter_counts AS SELECT letter, count(1) AS conteo FROM data GROUP BY letter ORDER BY letter;
+CREATE TABLE letter_counts AS SELECT letra, count(1) AS conteo FROM data GROUP BY letra ORDER BY letra;
 INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT * FROM letter_counts;
