@@ -23,7 +23,7 @@ ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
 TBLPROPERTIES ("skip.header.line.count"="0");
 
 LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE data;
-CREATE TABLE organizado AS SELECT letra, fecha, numero FROM data ORDER BY letra, fecha, numero;
+CREATE TABLE organizado AS SELECT * FROM data ORDER BY letra, numero, fecha;
 INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT * FROM organizado;
