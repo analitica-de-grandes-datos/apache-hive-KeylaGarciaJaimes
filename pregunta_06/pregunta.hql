@@ -45,4 +45,18 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+DROP TABLE IF EXISTS tbl0;
+CREATE TABLE tbl0 (
+    c1 INT,
+    c2 STRING,
+    c3 INT,
+    c4 STRING,
+    c5 STRING, 
+    c6 MAP<STRING, INT>
+)
 
+DROP TABLE IF EXISTS letras;
+CREATE TABLE letras AS SELECT UPPER(c5) AS letra FROM tbl0;
+INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT * FROM letras;
