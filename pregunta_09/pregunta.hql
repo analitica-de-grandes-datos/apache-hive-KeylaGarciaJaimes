@@ -46,7 +46,7 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
     >>> Escriba su respuesta a partir de este punto <<<
 */
 DROP TABLE IF EXISTS contador;
-CREATE TABLE contador AS SELECT c1, llave, valor FROM  tbl1 LATERAL VIEW OUTER explode(c4) tbl1 as llave,valor;
+CREATE TABLE contador AS SELECT c1, key, val FROM  tbl1 LATERAL VIEW OUTER explode(c4) tbl1 as llave,valor;
 
 INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
