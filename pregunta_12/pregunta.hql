@@ -32,4 +32,8 @@ LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE t0;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
-
+DROP TABLE IF EXISTS contador;
+CREATE TABLE contador AS SELECT letra, palabra FROM t0 LATERAL VIEW EXPLODE(c2) t0 as letra LATERAL VIEW  EXPLODE(c3) t0 as palabra, value;
+INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT letra, palabra, count(1) FROM contador GROUP BY letra, palabra;
