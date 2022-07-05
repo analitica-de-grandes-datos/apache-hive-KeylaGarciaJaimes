@@ -44,7 +44,7 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
-CREATE TABLE letras AS SELECT DISTINCT(c5) FROM tbl0 ORDER BY c5;
+CREATE TABLE letras AS SELECT DISTINCT(c5) FROM tbl0 LATERAL VIEW explode(c5) tbl0;
 INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT * FROM letras;
+SELECT * FROM letras order by c5;
