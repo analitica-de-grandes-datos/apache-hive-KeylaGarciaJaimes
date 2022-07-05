@@ -48,4 +48,4 @@ DROP TABLE IF EXISTS letras;
 CREATE TABLE letras AS SELECT year(c4) as anio, letra FROM tbl0 LATERAL VIEW explode(c5) tbl0 as letra;
 INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT year, letra, count(*) FROM letras ORDER BY anio, letra;
+SELECT anio, letra, count(*) FROM letras ORDER BY anio, letra;
